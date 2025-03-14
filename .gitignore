@@ -30,6 +30,9 @@ obj/
 Contexto/
 Migrations/
 
+# Configurações do projeto
+COMANDOS.TXT
+
 # Configurações do usuário
 *.user
 *.suo
