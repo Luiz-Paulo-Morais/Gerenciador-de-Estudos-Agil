@@ -1,11 +1,12 @@
 using Microsoft.AspNetCore.Identity;
+using ProjetoGEA.Dominio.Enumeradores;
 
 namespace ProjetoGEA.Dominio.Entidades
 {
     public class Usuario : IdentityUser<int>
     {
-        public string Nome { get; set; }
-        public string SenhaHash { get; set; }        
+        public string Nome { get; set; }        
+        public TiposUsuario TipoUsuario { get; set; }        
         public DateTime DataCriacao { get; set; }        
         public bool Ativo { get; set; }
 
@@ -17,8 +18,8 @@ namespace ProjetoGEA.Dominio.Entidades
         public Usuario()
         {
             Ativo = true;
-            DataCriacao = DateTime.UtcNow;
-            SenhaHash = "111";
+            DataCriacao = DateTime.UtcNow;            
+            TipoUsuario = TiposUsuario.Default; // 🆕 Define um tipo padrão
 
             Materias = new List<Materia>();
             Sprints = new List<Sprint>();

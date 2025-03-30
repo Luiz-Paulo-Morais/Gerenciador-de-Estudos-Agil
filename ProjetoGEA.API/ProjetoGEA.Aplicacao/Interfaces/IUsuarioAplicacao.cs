@@ -6,7 +6,7 @@ namespace ProjetoGEA.Aplicacao
     {
         Task<int> CriarAsync(Usuario usuarioDTO);
 
-        Task AlterarSenhaAsync(Usuario usuarioDTO, string novaSenha);
+        //Task AlterarSenhaAsync(Usuario usuarioDTO, string novaSenha);
 
         Task AtualizarAsync(Usuario usuarioDTO);
 

@@ -19,11 +19,7 @@ namespace ProjetoGEA.Aplicacao
                 throw new Exception("Usuario nao pode ser vazio");
             }
 
-            await ValidarInformacoesUsuarioAsync(usuario);
-            if (string.IsNullOrEmpty(usuario.SenhaHash))
-            {
-                throw new Exception("Senha nao pode ser vazio");
-            }
+            await ValidarInformacoesUsuarioAsync(usuario);            
 
             return await _usuarioRepositorio.CriarAsync(usuario);
         }
@@ -41,12 +37,13 @@ namespace ProjetoGEA.Aplicacao
             await ValidarInformacoesUsuarioAsync(usuario);
 
             usuarioDominio.Nome = usuario.Nome;
-            usuarioDominio.Email = usuario.Email;
-            usuarioDominio.DataCriacao = usuario.DataCriacao;        
+            usuarioDominio.Email = usuario.Email;                   
+            usuarioDominio.TipoUsuario = usuario.TipoUsuario;                   
 
             await _usuarioRepositorio.AtualizarAsync(usuarioDominio);
         }
 
+        /*
         public async Task AlterarSenhaAsync(Usuario usuario, string senhaAntiga)
         {
             var usuarioDominio = await _usuarioRepositorio.ObterPorIdAsync(usuario.Id);
@@ -64,7 +61,8 @@ namespace ProjetoGEA.Aplicacao
 
             await _usuarioRepositorio.AtualizarAsync(usuarioDominio);
         }
-
+        */
+        
         public async Task<Usuario> ObterPorIdAsync(int usuarioId)
         {
             var usuarioDominio = await _usuarioRepositorio.ObterPorIdAsync(usuarioId);
