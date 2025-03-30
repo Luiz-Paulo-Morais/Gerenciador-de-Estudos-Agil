@@ -25,7 +25,7 @@ namespace ProjetoGEA.Repositorio
         public async Task<Sprint> ObterPorIdAsync(int sprintId)
         {
             return await _contexto.Sprints
-                .Where(s => s.Id == sprintId)
+                .Where(s => s.Id == sprintId && s.Ativo)
                 .FirstOrDefaultAsync();
         }
 

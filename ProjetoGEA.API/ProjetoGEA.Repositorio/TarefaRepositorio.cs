@@ -25,7 +25,7 @@ namespace ProjetoGEA.Repositorio
         public async Task<Tarefa> ObterPorIdAsync(int tarefaId)
         {
             return await _contexto.Tarefas
-                .Where(t => t.Id == tarefaId)
+                .Where(t => t.Id == tarefaId && t.Ativo)
                 .FirstOrDefaultAsync();
         }
 

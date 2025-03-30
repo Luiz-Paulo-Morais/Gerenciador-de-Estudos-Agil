@@ -24,7 +24,7 @@ namespace ProjetoGEA.Repositorio
         public async Task<Usuario> ObterPorIdAsync(int usuarioId)
         {
             return await _contexto.Usuarios
-                .Where(u => u.Id == usuarioId)                
+                .Where(u => u.Id == usuarioId && u.Ativo)                
                 .FirstOrDefaultAsync();
         }
         public async Task<Usuario> ObterDesativoAsync(int usuarioId)

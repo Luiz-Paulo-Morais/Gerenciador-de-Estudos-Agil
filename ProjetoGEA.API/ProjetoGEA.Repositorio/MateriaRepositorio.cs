@@ -25,7 +25,7 @@ namespace ProjetoGEA.Repositorio
         public async Task<Materia> ObterPorIdAsync(int materiaId)
         {
             return await _contexto.Materias
-                .Where(m => m.Id == materiaId)
+                .Where(m => m.Id == materiaId && m.Ativo)
                 .FirstOrDefaultAsync();
         }
 
