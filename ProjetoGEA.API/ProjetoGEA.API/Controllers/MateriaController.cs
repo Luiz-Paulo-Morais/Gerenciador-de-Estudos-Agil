@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 using ProjetoGEA.Api.Models.Materias.Requisicao;
 using ProjetoGEA.Api.Models.Materias.Resposta;
 using ProjetoGEA.Aplicacao;
 using ProjetoGEA.Dominio.Entidades;
+using ProjetoGEA.Dominio.Enumeradores;
+using System.Security.Claims;
 
 namespace ProjetoGEA.Api.Controllers
 {
+    [Authorize] // Apenas usuários autenticados podem acessar
     [ApiController]
     [Route("[controller]")]
     public class MateriaController : ControllerBase
@@ -15,6 +19,22 @@ namespace ProjetoGEA.Api.Controllers
         public MateriaController(IMateriaAplicacao materiaAplicacao)
         {
             _materiaAplicacao = materiaAplicacao;
+        }
+
+        /// <summary>
+        /// Obtém o ID do usuário autenticado e seu papel (Administrador, Default, Convidado)
+        /// </summary>
+        private (int UsuarioId, TiposUsuario TipoUsuario) ObterUsuarioAutenticado()
+        {
+            var usuarioIdClaim = User.FindFirst("id")?.Value;
+            var tipoUsuarioClaim = User.FindFirst(ClaimTypes.Role)?.Value;
+
+            if (!int.TryParse(usuarioIdClaim, out int usuarioId) || !Enum.TryParse(tipoUsuarioClaim, out TiposUsuario tipoUsuario))
+            {
+                throw new UnauthorizedAccessException("Usuário não autenticado ou sem permissões.");
+            }
+
+            return (usuarioId, tipoUsuario);
         }
 
         [HttpGet]
@@ -38,11 +58,18 @@ namespace ProjetoGEA.Api.Controllers
         {
             try
             {
+                var (usuarioId, tipoUsuario) = ObterUsuarioAutenticado();
+
+                if (tipoUsuario == TiposUsuario.Convidado)
+                {
+                    return Forbid("Convidados não podem criar matérias.");
+                }
+
                 var materia = new Materia()
                 {
                     Nome = materiaCriar.Nome,
                     Descricao = materiaCriar.Descricao,
-                    UsuarioId = materiaCriar.UsuarioId
+                    UsuarioId = usuarioId // Garante que o usuário autenticado seja o dono
                 };
 
                 var materiaId = await _materiaAplicacao.CriarAsync(materia);
@@ -60,15 +87,24 @@ namespace ProjetoGEA.Api.Controllers
         {
             try
             {
-                var materia = new Materia()
-                {
-                    Id = materiaAtualizar.Id,
-                    Nome = materiaAtualizar.Nome,
-                    Descricao = materiaAtualizar.Descricao,
-                };
+                var (usuarioId, tipoUsuario) = ObterUsuarioAutenticado();
+                var materia = await _materiaAplicacao.ObterPorIdAsync(materiaAtualizar.Id);
 
+                if (materia == null)
+                    return NotFound("Matéria não encontrada.");
+
+                // 🔒 Convidados não podem editar
+                if (tipoUsuario == TiposUsuario.Convidado)
+                    return Forbid("Convidados não podem editar matérias.");
+
+                // 🔒 Usuários Default só podem editar suas próprias matérias
+                if (tipoUsuario == TiposUsuario.Default && materia.UsuarioId != usuarioId)
+                    return Forbid("Usuários padrão só podem editar suas próprias matérias.");
+
+                materia.Nome = materiaAtualizar.Nome;
+                materia.Descricao = materiaAtualizar.Descricao;
                 await _materiaAplicacao.AtualizarAsync(materia);
-                return Ok();
+                return Ok("Matéria atualizada com sucesso.");
             }
             catch (Exception ex)
             {
@@ -82,8 +118,22 @@ namespace ProjetoGEA.Api.Controllers
         {
             try
             {
+                var (usuarioId, tipoUsuario) = ObterUsuarioAutenticado();
+                var materia = await _materiaAplicacao.ObterPorIdAsync(materiaId);
+
+                if (materia == null)
+                    return NotFound("Matéria não encontrada.");
+
+                // 🔒 Convidados não podem excluir
+                if (tipoUsuario == TiposUsuario.Convidado)
+                    return Forbid("Convidados não podem excluir matérias.");
+
+                // 🔒 Usuários Default só podem excluir suas próprias matérias
+                if (tipoUsuario == TiposUsuario.Default && materia.UsuarioId != usuarioId)
+                    return Forbid("Usuários padrão só podem excluir suas próprias matérias.");
+
                 await _materiaAplicacao.DeletarAsync(materiaId);
-                return Ok();
+                return Ok("Matéria excluída com sucesso.");
             }
             catch (Exception ex)
             {
@@ -97,13 +147,21 @@ namespace ProjetoGEA.Api.Controllers
         {
             try
             {
-                await _materiaAplicacao.RestaurarAsync(materiaId);
+                var (usuarioId, tipoUsuario) = ObterUsuarioAutenticado();
+                var materia = await _materiaAplicacao.ObterPorIdAsync(materiaId);
 
-                return Ok();
+                if (materia == null)
+                    return NotFound("Matéria não encontrada.");
+
+                // 🔒 Apenas Administradores podem restaurar qualquer matéria
+                if (tipoUsuario == TiposUsuario.Default && materia.UsuarioId != usuarioId)
+                    return Forbid("Usuários padrão só podem restaurar suas próprias matérias.");
+
+                await _materiaAplicacao.RestaurarAsync(materiaId);
+                return Ok("Matéria restaurada com sucesso.");
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
@@ -115,20 +173,11 @@ namespace ProjetoGEA.Api.Controllers
             try
             {
                 var materiasDominio = await _materiaAplicacao.ListarAsync(ativos);
-
-                var materias = materiasDominio.Select(materia => new MateriaResposta(materia)
-                {
-                    Id = materia.Id,
-                    Nome = materia.Nome,
-                    Descricao = materia.Descricao,
-                    UsuarioId = materia.UsuarioId
-                }).ToList();
-
+                var materias = materiasDominio.Select(materia => new MateriaResposta(materia)).ToList();
                 return Ok(materias);
             }
             catch (Exception ex)
             {
-
                 return BadRequest(ex.Message);
             }
         }
@@ -140,9 +189,7 @@ namespace ProjetoGEA.Api.Controllers
             try
             {
                 var materiasDominio = await _materiaAplicacao.ListarPorUsuarioAsync(usuarioId, ativo);
-
                 var materias = materiasDominio.Select(m => new MateriaResposta(m)).ToList();
-
                 return Ok(materias);
             }
             catch (Exception ex)
@@ -150,7 +197,5 @@ namespace ProjetoGEA.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-
     }
 }

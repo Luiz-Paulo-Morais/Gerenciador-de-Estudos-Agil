@@ -39,7 +39,8 @@ var keyValue = configuration["Jwt:Key"];
 //depuracao
 Console.WriteLine($"Jwt:Key = {keyValue}");
 
-var key = Encoding.ASCII.GetBytes(keyValue);
+//var key = Encoding.ASCII.GetBytes(keyValue);
+var key = Encoding.UTF8.GetBytes(keyValue);
 
 builder.Services.AddAuthentication(options =>
 {
@@ -52,23 +53,47 @@ builder.Services.AddAuthentication(options =>
     options.SaveToken = true;
     options.TokenValidationParameters = new TokenValidationParameters
     {
+        ValidateIssuer = true,
+        ValidateAudience = true,
+        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ValidIssuer = configuration["Jwt:Issuer"],
+        ValidAudience = configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(key),
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ClockSkew = TimeSpan.Zero
+        RequireExpirationTime = false, // 🚀 Permite tokens expirados para teste
+        ValidateActor = false,
+        ValidateTokenReplay = false
+    };
+
+    // Personaliza a extração do token do cookie
+    options.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            if (context.Request.Cookies.ContainsKey("token"))
+            {
+                var token = context.Token = context.Request.Cookies["token"];
+                Console.WriteLine($"[DEBUG] Token Recebido no Cookie: {token}");
+            }
+            else
+            {
+                Console.WriteLine("[DEBUG] Nenhum token encontrado nos cookies.");
+            }
+            return Task.CompletedTask;
+        }
     };
 });
 
 // ===== Configuração de CORS =====
 builder.Services.AddCors(options =>
 {
-    options.AddDefaultPolicy(policy =>
+    options.AddPolicy("CorsPolicy", policy =>
     {
         policy.WithOrigins("http://localhost:3000")
-              .SetIsOriginAllowedToAllowWildcardSubdomains()
+              //.SetIsOriginAllowedToAllowWildcardSubdomains()
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials(); // ✅ Permite envio de cookies;
     });
 });
 
@@ -89,10 +114,14 @@ if (app.Environment.IsDevelopment())
     app.UseDeveloperExceptionPage();
 }
 
-app.UseHttpsRedirection();
-app.UseCors();
+app.UseCors("CorsPolicy");
 app.UseAuthentication(); // JWT
 app.UseAuthorization();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection(); // Apenas em produção
+}
 
 app.MapControllers();
 
