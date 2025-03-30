@@ -1,0 +1,155 @@
+.container {
+    width: 100%;
+    max-width: 80%;
+    margin: 0 auto;
+    margin-top: 120px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+
+}
+
+.logoContainer {
+    width: 600px;    
+    height: 450px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.logo {
+    max-width: 300px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.formContainer {
+    width: 280px;
+}
+
+.column {
+    display: 1;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+}
+
+/*__TEXTO__==================================================*/
+
+.title {
+    /*h2*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 44px;
+
+    color: #ffffff;
+}
+
+.titleLogin {
+    /*p*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 32px;
+    margin-bottom: 20px;
+    line-height: 44px;
+}
+
+.subTitleLogin {
+    /*p*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    margin-bottom: 35px;
+    line-height: 25px;
+}
+
+.TextoConta {
+    /*p*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 35px;
+    line-height: 19px;
+
+    color: #ffffff;
+    text-decoration: none;    
+}
+
+.login {
+    /*p*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 14px;
+    margin-bottom: 35px;
+    line-height: 19px;
+
+    color: #15c6e6;
+    text-decoration: none;
+
+    &:hover {
+        color: #3956da;
+    }
+}
+
+.textContent {
+    /*p*/
+    font-family: 'Open Sans', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 20px;
+
+    color: #ffffff;
+}
+
+/* Media Query para telas pequenas (celulares) */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        margin-top: 60px;
+    }
+
+    .logoContainer {
+        width: 90%;
+    }
+
+    .formContainer {
+        width: 100%;
+        max-width: 90%;
+        padding: 20px;
+    }
+}
+
+/* Media Query para telas muito pequenas (ex: celulares compactos) */
+@media (max-width: 480px) {
+    .container {
+        width: 100%;
+        padding: 10px;    
+    }
+
+    .logoContainer {
+        width: 100%;
+    }
+
+    .formContainer {
+        max-width: 100%;
+        padding: 15px;
+    }
+}

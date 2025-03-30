@@ -1,0 +1,27 @@
+.homeContainer {
+  max-width: 1200px; /* Define a largura máxima */
+  min-height: 100vh; /* Garante que a tela ocupe pelo menos a altura total */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  text-align: center;
+  padding: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.card {
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+  background-color: #2c2c2c;
+  color: white;
+  border: 1px solid #444;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  background-color: #3c3c3c;
+}
+
+.icon {
+  font-size: 40px;
+  margin-bottom: 10px;
+}
