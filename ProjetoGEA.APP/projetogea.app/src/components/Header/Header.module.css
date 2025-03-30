@@ -1,0 +1,147 @@
+/* Estilos gerais do Header */
+.header {
+  width: 100%;
+  height: 80px;
+  background-color: #2c2c2c;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid #444;
+}
+
+/* Container interno para centralizar o conteúdo */
+.headerContainer {
+  width: 100%;
+  max-width: 1200px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+/* Container do logo e título */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  height: 50px;
+  cursor: pointer;
+}
+
+.homeIcon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s ease-in-out;
+}
+
+.homeIcon:hover {
+  transform: scale(1.1);
+}
+
+/* Título do sistema */
+.titulo {
+  font-size: 20px;
+  color: white;
+  font-weight: bold;
+}
+
+/* Container do usuário */
+.usuarioContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nomeUsuario {
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.fotoUsuario {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+/* Ícones do menu e logout */
+.menuIcon,
+.logoffIcon {
+  font-size: 22px;
+  color: white;
+  cursor: pointer;
+  transition: color 0.3s ease-in-out;
+}
+
+.menuIcon:hover,
+.logoffIcon:hover {
+  color: #ff4747;
+}
+
+/* Menu Dropdown */
+.menuDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: #2c2c2c;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+  z-index: 10;
+}
+
+/* Itens do menu */
+.menuItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 15px;
+  color: white;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.menuItem:hover {
+  background-color: #ff4747;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .titulo {
+    font-size: 16px;
+  }
+
+  .menuDropdown {
+    width: 180px;
+  }
+}
+
+@media (max-width: 480px) {
+  .titulo {
+    display: none;
+  }
+
+  .logo {
+    height: 40px;
+  }
+
+  .fotoUsuario {
+    width: 35px;
+    height: 35px;
+  }
+
+  .menuDropdown {
+    width: 160px;
+  }
+}

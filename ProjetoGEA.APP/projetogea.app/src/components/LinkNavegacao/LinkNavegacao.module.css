@@ -1,0 +1,39 @@
+/*-- Estilo base do link --*/
+.linkContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: transparent;    
+    position: relative;  
+    width: 100%;   
+}
+
+
+/*-- Estilo do link ajustável para a cor do texto --*/
+.link {
+    background: transparent;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+    text-decoration: none; /* Remove sublinhado */
+}
+
+/*-- Variantes de cor para o texto do link --*/
+.primary .link {
+    color: white;
+}
+
+.secondary .link {
+    color: white;
+}
+
+.success .link {
+    color: white;
+}
+
+.danger .link {
+    color: white;
+}

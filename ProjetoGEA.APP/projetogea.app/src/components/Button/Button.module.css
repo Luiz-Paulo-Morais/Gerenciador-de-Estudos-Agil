@@ -1,0 +1,53 @@
+/*-- Estilo base do botão --*/
+.buttonContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #565656;
+    border-radius: 22px;
+    position: relative;
+    color: #ffffff;
+    padding: 2px 12px;
+    min-width: 120px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+/*-- Variantes de estilo --*/
+.primary {
+    background: #e4105d;
+    border: 1px solid #e4105d;
+}
+
+.secondary {
+    background: #4a90e2;
+    border: 1px solid #4a90e2;
+}
+
+.success {
+    background: #28a745;
+    border: 1px solid #28a745;
+}
+
+.danger {
+    background: #dc3545;
+    border: 1px solid #dc3545;
+}
+
+.iconContainer {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.button {
+    background: transparent;
+    border: none;
+    color: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 10px;
+    width: 100%;
+}
