@@ -23,6 +23,10 @@ builder.Services.AddScoped<ISprintAplicacao, SprintAplicacao>();
 builder.Services.AddScoped<ISprintRepositorio, SprintRepositorio>();
 builder.Services.AddScoped<ITarefaAplicacao, TarefaAplicacao>();
 builder.Services.AddScoped<ITarefaRepositorio, TarefaRepositorio>();
+builder.Services.AddScoped<ICicloPomodoroAplicacao, CicloPomodoroAplicacao>();
+builder.Services.AddScoped<ICicloPomodoroRepositorio, CicloPomodoroRepositorio>();
+builder.Services.AddScoped<IMetaEstudoAplicacao, MetaEstudoAplicacao>();
+builder.Services.AddScoped<IMetaEstudoRepositorio, MetaEstudoRepositorio>();
 
 // ===== Configuração do Banco de Dados =====
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");

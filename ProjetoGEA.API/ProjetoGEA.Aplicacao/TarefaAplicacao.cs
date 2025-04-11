@@ -32,10 +32,9 @@ namespace ProjetoGEA.Aplicacao
 
             tarefaDominio.Titulo = tarefa.Titulo;
             tarefaDominio.Descricao = tarefa.Descricao;
-            tarefaDominio.MateriaId = tarefa.MateriaId;
-            tarefaDominio.SprintId = tarefa.SprintId;
-            tarefaDominio.Concluida = tarefa.Concluida;
-            
+            tarefaDominio.MateriaId = tarefa.MateriaId;            
+            tarefaDominio.Status = tarefa.Status;
+
 
             await _tarefaRepositorio.AtualizarAsync(tarefaDominio);
         }
@@ -69,10 +68,25 @@ namespace ProjetoGEA.Aplicacao
             return await _tarefaRepositorio.ObterPorIdAsync(tarefaId)
                 ?? throw new Exception("Tarefa não encontrada");
         }
+        public async Task<int?> ObterUsuarioIdPorTarefaAsync(int tarefaId)
+        {
+            if (tarefaId <= 0)
+                throw new ArgumentException("O ID da tarefa deve ser maior que zero.", nameof(tarefaId));
+
+            var usuarioId = await _tarefaRepositorio.ObterUsuarioIdPorTarefaAsync(tarefaId);
+
+            return usuarioId > 0 ? usuarioId : null;
+        }
+
 
         public async Task<IEnumerable<Tarefa>> ListarPorMateriaAsync(int materiaId, bool ativo)
         {
             return await _tarefaRepositorio.ListarPorMateriaAsync(materiaId, ativo);
+        }
+
+        public async Task<IEnumerable<Tarefa>> ListarPorSprintAsync(int sprintId, bool ativo)
+        {
+            return await _tarefaRepositorio.ListarPorSprintAsync(sprintId, ativo);
         }
 
         public async Task<IEnumerable<Tarefa>> ListarPorUsuarioAsync(int usuarioId, bool ativo)

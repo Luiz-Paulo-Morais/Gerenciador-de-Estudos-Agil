@@ -15,6 +15,8 @@ namespace ProjetoGEA.Dominio.Entidades
 
         // Relacionamento com Simulado
         public ICollection<Simulado> Simulados { get; set; } = new List<Simulado>();
+        public ICollection<CicloPomodoro> CiclosPomodoro { get; set; }
+        public ICollection<MetaEstudo> MetasEstudo { get; set; }
 
         public Materia()
         {

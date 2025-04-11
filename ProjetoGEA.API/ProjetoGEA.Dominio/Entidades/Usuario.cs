@@ -14,6 +14,8 @@ namespace ProjetoGEA.Dominio.Entidades
         public ICollection<Materia> Materias { get; set; }
         public ICollection<Sprint> Sprints { get; set; }
         public ICollection<Simulado> Simulados { get; set; }
+        public ICollection<CicloPomodoro> CiclosPomodoro { get; set; }
+        public ICollection<MetaEstudo> MetasEstudo { get; set; }
 
         public Usuario()
         {
@@ -24,6 +26,8 @@ namespace ProjetoGEA.Dominio.Entidades
             Materias = new List<Materia>();
             Sprints = new List<Sprint>();
             Simulados = new List<Simulado>();
+            CiclosPomodoro = new List<CicloPomodoro>();
+            MetasEstudo = new List<MetaEstudo>();
         }
 
         public void Deletar()

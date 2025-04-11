@@ -1,4 +1,4 @@
-
+using ProjetoGEA.Dominio.Enumeradores;
 namespace ProjetoGEA.Dominio.Entidades
 {
     public class Tarefa
@@ -7,18 +7,23 @@ namespace ProjetoGEA.Dominio.Entidades
         public string Titulo { get; set; }
         public string Descricao { get; set; }
         public DateTime DataCriacao { get; set; }
-        public bool Concluida { get; set; }
+        public StatusTarefa Status { get; set; }
         public int MateriaId { get; set; }
         public Materia Materia { get; set; }
         public int SprintId { get; set; }
-        public Sprint Sprint { get; set; }      
+        public Sprint Sprint { get; set; }
+            
         public bool Ativo { get; set; }
+        public ICollection<CicloPomodoro> CiclosPomodoro { get; set; }
+        //public ICollection<MetaEstudo> MetasEstudo { get; set; }
         
         public Tarefa()
         {
             Ativo = true;
             DataCriacao = DateTime.UtcNow;
-            Concluida = false;
+            Status = StatusTarefa.Pendente; // Inicializa com o status Pendente
+            CiclosPomodoro = new List<CicloPomodoro>();
+            //MetasEstudo = new List<MetaEstudo>();
         }
 
         public void Deletar()
@@ -29,15 +34,6 @@ namespace ProjetoGEA.Dominio.Entidades
         public void Restaurar()
         {
             Ativo = true;
-        }
-        public void Concluir()
-        {
-            Concluida = true;
-        }
-
-        public void RestaurarConcluir()
-        {
-            Concluida = false;
-        }
+        }       
     }
 }

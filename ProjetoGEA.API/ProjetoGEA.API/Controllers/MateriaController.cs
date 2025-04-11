@@ -103,6 +103,7 @@ namespace ProjetoGEA.Api.Controllers
 
                 materia.Nome = materiaAtualizar.Nome;
                 materia.Descricao = materiaAtualizar.Descricao;
+                materia.UsuarioId = materiaAtualizar.UsuarioId;
                 await _materiaAplicacao.AtualizarAsync(materia);
                 return Ok("Matéria atualizada com sucesso.");
             }

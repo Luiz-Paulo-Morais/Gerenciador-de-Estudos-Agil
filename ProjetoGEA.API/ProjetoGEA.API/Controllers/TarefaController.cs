@@ -3,6 +3,8 @@ using ProjetoGEA.Api.Models.Tarefas.Requisicao;
 using ProjetoGEA.Api.Models.Tarefas.Resposta;
 using ProjetoGEA.Aplicacao;
 using ProjetoGEA.Dominio.Entidades;
+using ProjetoGEA.Dominio.Enumeradores;
+using System.ComponentModel.DataAnnotations;
 
 namespace ProjetoGEA.Api.Controllers
 {
@@ -31,6 +33,29 @@ namespace ProjetoGEA.Api.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        [HttpGet("ObterUsuarioId/{tarefaId}")]
+        public async Task<IActionResult> ObterUsuarioIdPorTarefaAsync(int tarefaId)
+        {
+            try
+            {
+                var usuarioId = await _tarefaAplicacao.ObterUsuarioIdPorTarefaAsync(tarefaId);
+
+                if (usuarioId == null)
+                    return NotFound(new { mensagem = "Usuário não encontrado para esta tarefa." });
+
+                return Ok(new { usuarioId });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new { mensagem = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { mensagem = "Erro interno no servidor.", erro = ex.Message });
+            }
+        }
+
 
         [HttpPost]
         [Route("Criar")]
@@ -67,7 +92,8 @@ namespace ProjetoGEA.Api.Controllers
                     Titulo = tarefaAtualizar.Titulo,
                     Descricao = tarefaAtualizar.Descricao,
                     MateriaId = tarefaAtualizar.MateriaId,
-                    SprintId = tarefaAtualizar.SprintId
+                    SprintId = tarefaAtualizar.SprintId,
+                    Status = tarefaAtualizar.Status
                 };
 
                 await _tarefaAplicacao.AtualizarAsync(tarefa);
@@ -100,7 +126,7 @@ namespace ProjetoGEA.Api.Controllers
         {
             try
             {
-                await _tarefaAplicacao.RestaurarAsync(tarefaId);                
+                await _tarefaAplicacao.RestaurarAsync(tarefaId);
                 return Ok();
             }
             catch (Exception ex)
@@ -117,25 +143,19 @@ namespace ProjetoGEA.Api.Controllers
             {
                 var tarefasDominio = await _tarefaAplicacao.ListarAsync(ativos);
 
-                var tarefas = tarefasDominio.Select(tarefa => new TarefaResposta(tarefa)
-                {
-                    Id = tarefa.Id,
-                    Titulo = tarefa.Titulo,
-                    Descricao = tarefa.Descricao,
-                    DataCriacao = tarefa.DataCriacao,
-                    Concluida = tarefa.Concluida,
-                    MateriaId = tarefa.MateriaId,
-                    SprintId = tarefa.SprintId
-                }).ToList();
+                if (!tarefasDominio.Any())
+                    return NotFound("Nenhuma tarefa encontrada.");
+
+                var tarefas = tarefasDominio.Select(tarefa => new TarefaResposta(tarefa)).ToList();
 
                 return Ok(tarefas);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                return BadRequest(ex.Message);
+                return StatusCode(500, "Erro interno ao listar tarefas.");
             }
         }
+
 
         [HttpGet]
         [Route("ListarPorUsuario/{usuarioId}")]
@@ -166,6 +186,50 @@ namespace ProjetoGEA.Api.Controllers
                 var tarefas = tarefasDominio.Select(t => new TarefaResposta(t)).ToList();
 
                 return Ok(tarefas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        [Route("ListarPorSprint/{sprintId}")]
+        public async Task<ActionResult> ListarPorSprintAsync([FromRoute] int sprintId, [FromQuery] bool ativo)
+        {
+            try
+            {
+                var tarefasDominio = await _tarefaAplicacao.ListarPorSprintAsync(sprintId, ativo);
+
+                var tarefas = tarefasDominio.Select(t => new TarefaResposta(t)).ToList();
+
+                return Ok(tarefas);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpGet("ListarStatusTarefa")]
+        public ActionResult ListarStatusTarefaAsync()
+        {
+            try
+            {
+                var statusTarefa = Enum.GetValues(typeof(StatusTarefa))
+                    .Cast<StatusTarefa>()
+                    .Select(tipo => new StatusTarefaResposta
+                    {
+                        Id = (int)tipo,
+                        Nome = tipo.GetType()
+                                .GetField(tipo.ToString())
+                                .GetCustomAttributes(typeof(DisplayAttribute), false)
+                                .Cast<DisplayAttribute>()
+                                .FirstOrDefault()?.Name ?? tipo.ToString()
+                    })
+                    .ToList();
+
+                return Ok(statusTarefa);
             }
             catch (Exception ex)
             {

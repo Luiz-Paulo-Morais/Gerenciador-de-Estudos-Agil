@@ -9,13 +9,17 @@ namespace ProjetoGEA.Dominio.Entidades
         public DateTime DataFim { get; set; }
         public int UsuarioId { get; set; }
         public Usuario Usuario { get; set; }
-        public ICollection<Tarefa> Tarefas { get; set; }
+        public ICollection<Tarefa> Tarefas { get; set; }        
+        public ICollection<CicloPomodoro> CiclosPomodoro { get; set; }
+        public ICollection<MetaEstudo> MetasEstudo { get; set; }
         public bool Ativo { get; set; }
 
         public Sprint()
         {
             Ativo = true;
             Tarefas = new List<Tarefa>();
+            CiclosPomodoro = new List<CicloPomodoro>();
+            MetasEstudo = new List<MetaEstudo>();            
         }
 
         public void Deletar()

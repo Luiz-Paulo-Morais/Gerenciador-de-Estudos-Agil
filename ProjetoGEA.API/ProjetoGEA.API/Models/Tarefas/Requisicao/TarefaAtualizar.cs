@@ -1,3 +1,4 @@
+using ProjetoGEA.Dominio.Enumeradores;
 namespace ProjetoGEA.Api.Models.Tarefas.Requisicao
 {
     public class TarefaAtualizar
@@ -5,8 +6,8 @@ namespace ProjetoGEA.Api.Models.Tarefas.Requisicao
         public int Id { get; set; }
         public string Titulo { get; set; }
         public string Descricao { get; set; }        
-        public int MateriaId { get; set; }
-        public int SprintId { get; set; }
-        public bool Concluida { get; set; }
+        public int MateriaId { get; set; }        
+        public int SprintId { get; set; }        
+        public StatusTarefa Status { get; set; }
     }
 }
