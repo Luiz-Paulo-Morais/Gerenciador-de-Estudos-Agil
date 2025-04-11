@@ -1,0 +1,115 @@
+.tarefaContainer {
+  max-width: 1200px;
+  /* Define a largura máxima */
+  width: 100%;
+  min-height: 100vh;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.searchContainer {
+  display: flex;
+  gap: 10px;
+}
+
+.searchInput {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 250px;
+  height: 40px;
+}
+
+.actionButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.addTarefaButton {
+  background-color: #343a40;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 125px;
+  height: 40px;
+}
+
+.addTarefaButton:hover {
+  background-color: #212529;
+}
+
+.tableContainer {
+  margin-top: 20px;
+}
+
+.actionIcons {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.actionIcons svg {
+  cursor: pointer;
+  font-size: 18px;
+}
+
+.actionIcons svg:hover {
+  color: #007bff;
+}
+
+.modalBody,
+.modalTitle {
+  color: black !important;
+}
+
+.buttonLimparFiltro {
+  background-color: #343a40;
+  color: white;
+  /* Texto branco para contraste */
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.buttonLimparFiltro:hover {
+  background-color: #212529;
+  transform: scale(1.1);
+}
+
+.buttonLimparFiltro:active {
+  background-color: #212529;
+  transform: scale(0.95);
+}
+
+.tabela_colunaAcoes {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.selectTarefa {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: none;
+  padding: 5px;
+  gap: 15px;  
+  border-radius: 10px;
+  padding: 8px;  
+  border-radius: 5px;
+  width: 250px;
+  height: 40px;
+}

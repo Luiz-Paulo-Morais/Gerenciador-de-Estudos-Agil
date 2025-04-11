@@ -1,0 +1,18 @@
+.modal-content {
+    background-color: #fff !important; /* Define o fundo do modal como branco */
+    color: #000 !important; /* Garante que o texto seja preto */
+}
+
+.modal-header {
+    border-bottom: 1px solid #dee2e6;
+}
+
+.modal-footer {
+    border-top: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+}
+
+.modal-footer button {
+    width: 100px;
+}

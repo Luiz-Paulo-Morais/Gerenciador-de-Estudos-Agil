@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import style from "./Cadastro.module.css";
 import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
+//import { Alert } from "react-bootstrap";
 import ImgIlustracao from "../../components/ImgIlustracao/ImgIlustracao";
 import { MdLock, MdEmail, MdPerson } from "react-icons/md";
 import axios from "axios";
@@ -16,6 +17,7 @@ export default function Cadastro() {
         tipoUsuario: 1, // 🔹 Sempre inicia como "Default"
     });
     const [error, setError] = useState("");
+    //const [mensagem, setMensagem] = useState({ tipo: "", texto: "" });
 
     // 🔹 Validações
     const validarSenha = (senha) =>
@@ -45,10 +47,12 @@ export default function Cadastro() {
                 tipoUsuario: formData.tipoUsuario
             });
 
+            
             alert("Cadastro realizado com sucesso!");
             navigate("/login"); // 🔹 Redireciona para a tela de login
 
         } catch (error) {
+            
             setError("Erro ao cadastrar usuário. Verifique os dados e tente novamente.");
         }
     };
@@ -56,6 +60,7 @@ export default function Cadastro() {
     return (
 
         <div className={style.container}>
+            
             <div className={style.column}>
                 <div className={style.logoContainer}>
                     <ImgIlustracao />

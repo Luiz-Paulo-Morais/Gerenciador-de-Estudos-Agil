@@ -69,9 +69,9 @@ const MateriaApi = {
         }
     },
 
-    async listarPorUsuarioAsync(materiaId, ativos) {
+    async listarPorUsuarioAsync(usuarioId, ativos) {
         try {
-            const response = await HTTPClient.get(`/Materia/ListarPorUsuario/${materiaId}?ativo=${ativos}`);
+            const response = await HTTPClient.get(`/Materia/ListarPorUsuario/${usuarioId}?ativo=${ativos}`);
             return response.data;
         }
         catch (error) {

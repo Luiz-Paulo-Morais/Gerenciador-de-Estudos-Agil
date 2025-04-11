@@ -1,0 +1,53 @@
+.container {
+  padding: 20px;
+  border-radius: 10px;
+  background: #f8f9fa;
+  max-width: 400px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.tarefaInfo {
+  margin-bottom: 20px;
+  padding: 10px;
+  background: #e9ecef;
+  border-radius: 5px;
+}
+
+.timer {
+  font-size: 3rem;
+  font-family: monospace;
+  margin: 20px 0;
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.controlButton {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.presets {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.presets button {
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background: #dee2e6;
+  transition: background 0.2s;
+}
+
+.presets button:hover {
+  background: #ced4da;
+}

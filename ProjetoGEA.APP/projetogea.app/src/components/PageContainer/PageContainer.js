@@ -16,19 +16,3 @@ const PageContainer = ({ children }) => {
 
 export default PageContainer;
 
-/*
-import React from "react";
-import styles from "./PageContainer.module.css";
-import Header from "../Header/Header";
-
-const PageContainer = ({ usuario, children }) => {
-  return (
-    <div className={styles.pageContainer}>
-      <Header usuario={usuario} />
-      <div className={styles.content}>{children}</div>
-    </div>
-  );
-};
-
-export default PageContainer;
-*/

@@ -1,16 +1,18 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Container, Row, Col, Card } from "react-bootstrap";
-import { FaUser, FaClipboardList, FaBook, FaTasks, FaChartLine } from "react-icons/fa";
+import { FaUser, FaClipboardList, FaBook, FaTasks, FaChartLine,  FaBookReader, FaRegChartBar} from "react-icons/fa";
 import PageContainer from "../../components/PageContainer/PageContainer";
 import styles from "./Home.module.css";
 
 const funcionalidades = [
   { id: "usuario", titulo: "Usuário", icone: <FaUser />, rota: "/usuario" },
+  { id: "sprint", titulo: "Sprint", icone: <FaChartLine />, rota: "/sprint" },
   { id: "materia", titulo: "Matéria", icone: <FaBook />, rota: "/materia" },
   { id: "simulado", titulo: "Simulado", icone: <FaClipboardList />, rota: "/simulado" },
   { id: "tarefa", titulo: "Tarefa", icone: <FaTasks />, rota: "/tarefa" },
-  { id: "sprint", titulo: "Sprint", icone: <FaChartLine />, rota: "/sprint" },
+  { id: "sessaoEstudo", titulo: "Sessão de Estudo", icone: <FaBookReader />, rota: "/sessaoEstudo" },
+  { id: "desempenho", titulo: "Desempenho", icone: <FaRegChartBar />, rota: "/desempenho" },
 ];
 
 const Home = () => {
@@ -18,8 +20,8 @@ const Home = () => {
   const usuario = { id: 1, nome: "Luiz Paulo", foto: "" };
 
   return (
-    <PageContainer usuario={usuario}>
-      <Container className={styles.homeContainer}>
+    <PageContainer usuario={usuario}>      
+      <Container className={styles.homeContainer}>        
         <Row className="mt-4">
           {funcionalidades.map((item) => (
             <Col key={item.id} xs={12} sm={6} md={4} lg={3} className="mb-4">

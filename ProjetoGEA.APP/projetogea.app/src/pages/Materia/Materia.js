@@ -143,7 +143,7 @@ const Materia = () => {
                 <tr>
                   <th>Nome</th>
                   <th>Descrição</th>
-                  <th>Usuário</th>
+                  {podeVisualizarTudo && <th>Usuário</th>}                  
                   <th className={styles.tabela_colunaAcoes}>Ações</th>
                 </tr>
               </thead>
@@ -152,7 +152,7 @@ const Materia = () => {
                   <tr key={materia.id}>
                     <td>{materia.nome}</td>
                     <td>{materia.descricao}</td>
-                    <td>{usuariosMap[materia.usuarioId] ?? "Desconhecido"}</td>
+                    {podeVisualizarTudo && <td>{usuariosMap[materia.usuarioId] ?? "Desconhecido"}</td>}                    
                     <td className={styles.actionIcons}>
                       {podeEditar && <FaEdit onClick={() => handleEditar(materia.id)} />}
                       {podeEditar && <FaTrash onClick={() => handleClickDeletar(materia)} 

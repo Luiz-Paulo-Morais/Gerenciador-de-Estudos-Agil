@@ -9,17 +9,22 @@ import {
   FaTasks,
   FaChartLine,
   FaHome,
+  FaBookReader,
+  FaRegChartBar,
 } from "react-icons/fa";
 import styles from "./Header.module.css";
 import logoSistema from "../../assets/logo01.png";
 import logoUserDefault from "../../assets/userLogado.png";
 
 const funcionalidades = [
+  { nome: "Home", icone: <FaHome />, rota: "/home" },
   { nome: "Usuário", icone: <FaUser />, rota: "/usuario" },
+  { nome: "Sprint", icone: <FaChartLine />, rota: "/sprint" },
   { nome: "Matéria", icone: <FaBook />, rota: "/materia" },
   { nome: "Simulado", icone: <FaClipboardList />, rota: "/simulado" },
   { nome: "Tarefa", icone: <FaTasks />, rota: "/tarefa" },
-  { nome: "Sprint", icone: <FaChartLine />, rota: "/sprint" },
+  { nome: "Sessão de Estudo", icone: <FaBookReader />, rota: "/sessaoEstudo" },
+  { nome: "Desempenho", icone: <FaRegChartBar />, rota: "/desempenho" },
 ];
 
 function DropdownMenu({ navigate }) {

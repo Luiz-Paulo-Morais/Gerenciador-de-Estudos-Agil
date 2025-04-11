@@ -13,7 +13,7 @@
 }
 
 .logoContainer {
-    width: 600px;    
+    width: 600px;
     height: 450px;
     display: flex;
     align-items: center;
@@ -44,6 +44,14 @@
 }
 
 /*__TEXTO__==================================================*/
+.alertMessage {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    margin: 10px auto;
+    padding: 10px;
+    border-radius: 5px;
+}
 
 .title {
     /*h2*/
@@ -87,7 +95,7 @@
     line-height: 19px;
 
     color: #ffffff;
-    text-decoration: none;    
+    text-decoration: none;
 }
 
 .login {
@@ -141,7 +149,7 @@
 @media (max-width: 480px) {
     .container {
         width: 100%;
-        padding: 10px;    
+        padding: 10px;
     }
 
     .logoContainer {

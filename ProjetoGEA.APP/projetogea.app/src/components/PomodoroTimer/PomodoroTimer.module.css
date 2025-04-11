@@ -1,0 +1,291 @@
+.container {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  background-color: #f8f9fa;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para os diferentes tipos de sessão */
+.pomodoro {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.shortBreak {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.longBreak {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Controles de sessão */
+.sessionControls {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  gap: 10px;
+}
+
+.sessionButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.2rem;
+  margin: 0 0.3rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+  background-color: #e9ecef;
+  color: #495057;
+}
+
+.sessionButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.sessionButton.active {
+  font-weight: bold;
+  transform: scale(1.05) translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.sessionButton.active.pomodoro {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.sessionButton.active.shortBreak {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.sessionButton.active.longBreak {
+  background-color: #3498db;
+  color: white;
+}
+
+/* Contador de pomodoros */
+.pomodoroCount {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+  gap: 10px;
+}
+
+.pomodoroDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: #dee2e6;
+  transition: all 0.3s;
+}
+
+.pomodoroDot.completed {
+  background-color: #e74c3c;
+  transform: scale(1.2);
+}
+
+/* Informações da tarefa */
+.tarefaInfo {
+  background-color: white;
+  padding: 1.2rem;
+  border-radius: 10px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.tarefaInfo h5 {
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #343a40;
+}
+
+.taskIcon {
+  color: #e74c3c;
+}
+
+.priority {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background-color: #fff3cd;
+  padding: 0.3rem 0.6rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  color: #856404;
+  margin-top: 0.5rem;
+}
+
+.tempoInfo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 0.8rem;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+/* Display do timer */
+.timerDisplay {
+  font-size: 5rem;
+  font-weight: bold;
+  text-align: center;
+  margin: 1.5rem 0;
+  padding: 1.5rem;
+  border-radius: 15px;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Controles do timer */
+.controls {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 2rem 0;
+}
+
+.controlButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.controlButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.pauseButton {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.pauseButton:hover {
+  background-color: #c0392b;
+}
+
+.resumeButton {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.resumeButton:hover {
+  background-color: #27ae60;
+}
+
+.cancelButton {
+  background-color: #6c757d;
+  color: white;
+}
+
+.cancelButton:hover {
+  background-color: #5a6268;
+}
+
+/* Status da sessão */
+.sessionStatus {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #495057;
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Modal de confirmação */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  max-width: 400px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+}
+
+.modalContent h4 {
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #343a40;
+}
+
+.warningIcon {
+  color: #e74c3c;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+  gap: 15px;
+}
+
+.modalButtons button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.continueButton {
+  background-color: #2ecc71;
+  color: white;
+}
+
+.continueButton:hover {
+  background-color: #27ae60;
+  transform: translateY(-2px);
+}
+
+.confirmCancelButton {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.confirmCancelButton:hover {
+  background-color: #c0392b;
+  transform: translateY(-2px);
+}
